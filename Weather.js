@@ -4,7 +4,7 @@ import {StatusBar, StyleSheet, Text, View } from 'react-native';
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {LinearGradient } from "expo-linear-gradient";
 
-export default function Weather({temp,temp_max,temp_min,name,condition}){
+export default function Weather({temp,temp_max,temp_min,name,condition,pm10,pm25}){
     const weatherOptions = {
         Haze: {
             iconName:"weather-hail",
@@ -19,13 +19,30 @@ export default function Weather({temp,temp_max,temp_min,name,condition}){
             color:["#6441A5","#2a0845"]
         },
         Snow:{
-            iconName:"weather-snowy"
+            iconName:"weather-snowy",
+            color:["#6441A5","#2a0845"]
         },
         Clouds:{
-            iconName:"weather-cloudy"
+            iconName:"weather-cloudy",
+            color:["#6441A5","#2a0845"]
         },
         Dust:{
-            iconName:"weather-sunset"
+            iconName:"weather-sunset",
+            color:["#6441A5","#2a0845"]
+        }
+    };
+    const dustOptions={
+        dustOp: (pm10) => {
+            if(pm10>=0 && pm10<=15)
+            {
+              return ("emoticon-excited");
+            }else if(pm10 >= 31 && pm10<=80)
+            {
+                return ("emoticon-neutral");
+            }else
+            {
+                return "emoticon-devil";
+            }
         }
     };
 
@@ -36,16 +53,18 @@ export default function Weather({temp,temp_max,temp_min,name,condition}){
 
             <View style={styles.harfContainer}>
             <MaterialCommunityIcons color="white" size={100} name={weatherOptions[condition].iconName}/>        
-            <Text style={styles.text}>
-             {temp}º</Text>
+            <Text style={styles.text}>{temp}º</Text>
             </View>
-
+            <View style={styles.harfContainer}>
+            <MaterialCommunityIcons color="white" size={100} name={dustOptions.dustOp(pm10)}/>        
+            <Text style={styles.text}>PM10:{pm10}</Text>
+            </View>
             <View style={styles.harfContainer}>
               <Text style={styles.text}>날씨 : {condition}</Text>
               <Text style={styles.text}>최저 기온 : {temp_min}º</Text>
             <Text style={styles.text}>최고 기온 : {temp_max}º</Text>
             </View>
-
+            {console.log(dustOptions.dustOp(pm10))}
             </LinearGradient>
     
         
@@ -69,8 +88,7 @@ Weather.protoTypes= {
                                 "Atmosphere",
                                 "Clear",
                                 "Clouds",
-                                "Dust"]).isRequired
-    
+                                "Dust"]).isRequired,
 }
 
 const styles = StyleSheet.create({
