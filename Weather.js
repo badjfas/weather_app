@@ -57,7 +57,7 @@ export default function Weather({temp,temp_max,temp_min,name,condition,pm10,pm25
             </View>
             <View style={styles.harfContainer}>
             <MaterialCommunityIcons color="white" size={100} name={dustOptions.dustOp(pm10)}/>        
-            <Text style={styles.text}>PM10:{pm10}</Text>
+            <Text style={styles.text}>미세먼지 : {pm10}</Text>
             </View>
             <View style={styles.harfContainer}>
               <Text style={styles.text}>날씨 : {condition}</Text>
