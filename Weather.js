@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {StatusBar, StyleSheet, Text, View } from 'react-native';
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {LinearGradient } from "expo-linear-gradient";
+import Hr from "react-native-hr-component";
 
 export default function Weather({temp,temp_max,temp_min,name,condition,pm10,pm25}){
     const weatherOptions = {
@@ -55,15 +56,12 @@ export default function Weather({temp,temp_max,temp_min,name,condition,pm10,pm25
             <MaterialCommunityIcons color="white" size={100} name={weatherOptions[condition].iconName}/>        
             <Text style={styles.text}>{temp}º</Text>
             </View>
-            <View style={styles.harfContainer}>
+            <Hr style={styles.liner} thickness={3}/>
+            <View style={styles.harfContainer2}>
             <MaterialCommunityIcons color="white" size={100} name={dustOptions.dustOp(pm10)}/>        
             <Text style={styles.text}>미세먼지 : {pm10}</Text>
             </View>
-            <View style={styles.harfContainer}>
-              <Text style={styles.text}>날씨 : {condition}</Text>
-              <Text style={styles.text}>최저 기온 : {temp_min}º</Text>
-            <Text style={styles.text}>최고 기온 : {temp_max}º</Text>
-            </View>
+
             {console.log(dustOptions.dustOp(pm10))}
             </LinearGradient>
     
@@ -108,7 +106,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    harfContainer2: {
+        flex:2,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     temp:{
         fontSize:32,
+    },
+    liner:{
+        flex:0.1,
+        alignItems:"center",
+        backgroundColor:"white",
+        justifyContent:"center",
     }
   });
